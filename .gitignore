@@ -1,0 +1,14 @@
+.classpath
+.project
+.idea
+.settings/
+.svn/
+target/
+*.jar
+*.log
+*.iml
+bootstrap-local.*
+application-local.*
+
+/src/main/java/it/tim/model/integration/generated/*
+/src/main/java/META-INF/sun-jaxb.episode

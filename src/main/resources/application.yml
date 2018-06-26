@@ -1,0 +1,84 @@
+logging:
+  level:
+    root: "${root_logging_level:INFO}"
+    it.tim.topup: "${feign_logging_level:DEBUG}"
+    it.tim.topup.aspects.LoggingAspects: "${appication_logging_level:DEBUG}"
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) [${spring.application.name}] [trace=%16X{X-B3-TraceId:-},span=%16X{X-B3-SpanId:-}] %-30logger{0}: %m%n"
+
+
+#Custom
+integration:
+  sdp:
+    ismobilepath: "${sdp_ismobile_path:http://10.53.100.120:8080}"
+    blpath: "${sdp_bl_path:http://10.53.100.120:8080}"
+    scpath: "${sdp_sc_path:http://10.53.100.120:8080}"
+    rolpath: "${sdp_rol_path:http://10.53.100.120:8080}"
+    cmsbasepath: "${sdp_cms_path:http://10.53.100.120:8080}"
+    fraudpath: "${sdp_fraud_path:http://10.53.100.120:8080}" 
+  soap:
+    sellabasepath: "${sella_path:https://obgcolcls.pd.tim.it:7012}"
+
+builtin:
+  keystorepath: "${keystore_path:/keystore/keystore.jks}"
+  amounts:
+    values:
+    - 5.00
+    - 10.00
+    - 15.00
+    - 20.00
+    - 25.00
+    - 30.00
+    - 50.00
+    - 100.00
+    default-value: 20.00
+    
+  terms-and-conditions:
+    title: "Informativa ai sensi della normativa Privacy"
+    text: "Ti informiamo che TIM S.p.A tratterà i Tuoi dati personali esclusivamente per effettuare l’operazione di ricarica da Te richiesta. In ogni momento potrai richiedere o visionare l’informativa,
+           verificare i Tuoi dati ed esercitare gli altri diritti previsti dall’art. 7 della normativa sulla Privacy, ivi incluso il diritto di revocare il consenso ad essere contattato per finalità commerciali, chiamando
+           il 119 o consultando il link Privacy sul sito tim.it."
+           
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread.timeoutInMilliseconds: "${HYSTRIX_TIMEOUT:20000}"
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: "${HTTP_CONN_TIMEOUT:5000}"
+        readTimeout: "${HTTP_DEF_TIMEOUT:10000}"
+        loggerLevel: basic
+      mobile:
+        connectTimeout: "${HTTP_CONN_TIMEOUT:5000}"
+        readTimeout: "${HTTP_MOBILE_TIMEOUT:10000}"
+        loggerLevel: basic
+      blacklist:
+        connectTimeout: "${HTTP_CONN_TIMEOUT:5000}"
+        readTimeout: "${HTTP_BL_TIMEOUT:10000}"
+        loggerLevel: basic
+      scratchcard:
+        connectTimeout: "${HTTP_CONN_TIMEOUT:5000}"
+        readTimeout: "${HTTP_SC_TIMEOUT:10000}"
+        loggerLevel: basic
+      rol:
+        connectTimeout: "${HTTP_CONN_TIMEOUT:5000}"
+        readTimeout: "${HTTP_ROL_TIMEOUT:10000}"
+        loggerLevel: basic
+      cms:
+        connectTimeout: "${HTTP_CONN_TIMEOUT:5000}"
+        readTimeout: "${HTTP_CMS_TIMEOUT:10000}"
+        loggerLevel: basic
+      fraud:
+        connectTimeout: "${HTTP_CONN_TIMEOUT:5000}"
+        readTimeout: "${HTTP_FRAUD_TIMEOUT:10000}"
+        loggerLevel: basic
+      bancaSella:
+        connectTimeout: "${HTTP_CONN_TIMEOUT:5000}"
+        readTimeout: "${HTTP_BANCASELLA_TIMEOUT:10000}"
+        loggerLevel: basic 

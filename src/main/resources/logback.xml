@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+	<!--property name="log.path" value="D:/NuovoProveca/EFK/log-efk/logs" />
+	<appender name="FILE-ENGINE-ERROR" class="ch.qos.logback.core.FileAppender">
+		<file>${log.path}/${log.name}.error</file>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="FILE-ENGINE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.path}/${log.name}.log</file>
+        <Append>true</Append>
+		<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+		</encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/${log.app.name}.%d{yyyy-MM-dd }.%i</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>		
+	</appender-->
+
+  <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+    <Target>System.out</Target>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+      <timestampPattern>[UNIX_TIMESTAMP_AS_NUMBER]</timestampPattern>    
+      <!--pattern>%d [%t] %p %logger [%X{username}] - %m%n</pattern-->
+      <fieldNames>
+                 <timestamp>timestamp</timestamp>
+                 <version>version</version>
+      </fieldNames>
+      <customFields>{"service":"topup"}</customFields>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>DEBUG</level>
+    </filter>
+  </appender>
+	<!--logger name="it.tim" level="debug" additivity="false">
+		<appender-ref ref="FILE-ENGINE" />
+	</logger>
+	
+	<logger name="org.springframework" level="error" additivity="false">
+		<appender-ref ref="FILE-ENGINE-ERROR" />
+	</logger-->
+
+	<logger name="it.tim" level="debug" additivity="false">
+		<appender-ref ref="Console" />
+	</logger>
+	
+  <root level="all">
+    <appender-ref ref="Console" />
+	<!--appender-ref ref="FILE-ENGINE-ERROR" /-->
+  </root>
+</configuration>

@@ -1,0 +1,12 @@
+#Custom   
+integration:
+  sdp:
+    ismobilepath: "${sdp_ismobile_path:http://localhost:8080}"
+    blpath: "${sdp_bl_path:http://localhost:8080}"
+    scpath: "${sdp_sc_path:http://localhost:8080}"
+    rolpath: "${sdp_rol_path:http://localhost:8080}"
+    cmsbasepath: "${sdp_cms_path:http://localhost:8080}"
+    fraudpath: "${sdp_fraud_path:http://localhost:8080}" 
+  soap:
+    sellabasepath: "${sella_path:https://obgcolcls.pd.tim.it:7012}"
+    keystorepath: "${KEYSTORE_PATH:C:\__PROGETTI\____FLY_TOGHETER}"
